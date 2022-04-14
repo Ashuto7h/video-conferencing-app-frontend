@@ -62,15 +62,7 @@
     "project": "./tsconfig.json",
     "sourceType": "module"
   },
-  "plugins": [
-    "react",
-    "@typescript-eslint",
-    "unused-imports",
-    "sort-keys-fix",
-    "prettier",
-    "jsx-a11y",
-    "jest"
-  ],
+  "plugins": ["react", "unused-imports", "sort-keys-fix", "prettier", "jsx-a11y", "jest"],
   "rules": {
     "array-bracket-newline": "off",
     "array-element-newline": "off",
@@ -122,7 +114,7 @@
     "jsx-a11y/interactive-supports-focus": "off",
     "jsx-a11y/no-static-element-interactions": "warn",
     "jsx-quotes": "off",
-    "linebreak-style": ["warn", "unix"],
+    "linebreak-style": ["off", "unix"],
     "max-classes-per-file": ["warn", 5],
     "max-len": [
       "warn",
@@ -136,7 +128,7 @@
     "max-statements": "off",
     "multiline-comment-style": "off",
     "multiline-ternary": "off",
-    "no-console": "warn",
+    "no-console": "off",
     "no-constant-condition": "warn",
     "no-debugger": "warn",
     "no-duplicate-imports": "off",
@@ -165,7 +157,7 @@
     "no-tabs": "off",
     "no-ternary": "off",
     "no-trailing-spaces": "warn",
-    "no-undef": "off",
+    "no-undef": "error",
     "no-undefined": "off",
     "no-underscore-dangle": "off",
     "no-unused-expressions": "off",
@@ -214,6 +206,7 @@
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-sort-props": "off",
+    "react/jsx-tag-spacing": "warn",
     "react/jsx-wrap-multilines": "off",
     "react/no-multi-comp": "off",
     "react/no-unstable-nested-components": "off",
@@ -222,10 +215,11 @@
     "require-await": "off",
     "require-unicode-regexp": "warn",
     "semi": "off",
+    "class-methods-use-this":"off",
     "sort-imports": [
       "warn",
       {
-        "ignoreCase": false,
+        "ignoreCase": true,
         "ignoreDeclarationSort": true,
         "ignoreMemberSort": false,
         "memberSyntaxSortOrder": ["none", "all", "single", "multiple"]
