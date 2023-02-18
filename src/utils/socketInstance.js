@@ -8,8 +8,8 @@ const peers = {};
 const initializePeerConnection = () =>
   new Peer('', {
     host: config.peerHost,
-    port: 4430,
-    secure: false
+    port: 443,
+    secure: config.peerSecure
   });
 
 const initializeSocketConnection = () =>
@@ -17,7 +17,7 @@ const initializeSocketConnection = () =>
     reconnection: true,
     reconnectionAttempts: 10,
     rejectUnauthorized: false,
-    secure: false
+    secure: config.peerSecure
   });
 
 class SocketConnection {
@@ -80,14 +80,10 @@ class SocketConnection {
       console.log('socket connected');
     });
     this.socket.on('user-disconnected', (userID) => {
-      console.log('user disconnected-- closing peers', userID);
       peers[userID] && peers[userID].close();
       this.removeVideo(userID);
       this.participants = this.participants.filter((peer) => peer.userID !== userID);
       this.settings.updateInstance('removeParticipant', userID);
-    });
-    this.socket.on('disconnect', () => {
-      console.log('socket disconnected --');
     });
     this.socket.on('error', (err) => {
       console.log('socket error --', err);
@@ -143,7 +139,6 @@ class SocketConnection {
         this.createVideo({ ...call.metadata, status: { audio: true, video: true }, stream });
       });
       call.on('close', () => {
-        console.log('closing peers listeners', call.metadata.id);
         this.removeVideo(call.metadata.id);
       });
       call.on('error', () => {
@@ -191,8 +186,8 @@ class SocketConnection {
         console.log('closing user', userID);
         this.removeVideo(userID);
       });
-      call.on('error', () => {
-        console.log('peer error ------');
+      call.on('error', (err) => {
+        console.log('peer error ------', err);
         this.removeVideo(userID);
       });
       peers[userID] = call;
@@ -257,7 +252,7 @@ class SocketConnection {
       }
     } else if (id === this.myID) {
       this.socket.emit('video-on', id);
-      this.reInitializeStream(status.video, status.audio, id);
+      this.reInitializeStream(status.video, status.audio);
     } else {
       myVideo.status = { ...myVideo.status, video: true };
     }

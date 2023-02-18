@@ -22,7 +22,7 @@ export const AddOrgModal = ({ isOpen, close, children, maxWidth }) => {
     };
   }, []);
   return (
-    <div id='openModal' className={classes.modalWindow} onClick={close}>
+    <div id='openModal' role='button' className={classes.modalWindow} onClick={close}>
       <Card
         onClick={(e) => {
           e.stopPropagation();

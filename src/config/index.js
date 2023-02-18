@@ -6,4 +6,4 @@ const configMap = {
   production
 };
 
-export const config = configMap[process.env.REACT_APP_ENV ?? 'local'];
+export const config = configMap[process.env.NODE_ENV ?? 'local'];
