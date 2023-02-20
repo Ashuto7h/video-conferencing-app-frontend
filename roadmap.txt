@@ -1,0 +1,4 @@
+- setup linter
+- remove localstorage
+- user modules sync with BE
+- write tests
